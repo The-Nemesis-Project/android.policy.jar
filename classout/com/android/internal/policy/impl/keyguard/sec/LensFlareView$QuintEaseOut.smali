@@ -1,0 +1,62 @@
+.class public Lcom/android/internal/policy/impl/keyguard/sec/LensFlareView$QuintEaseOut;
+.super Ljava/lang/Object;
+.source "LensFlareView.java"
+
+# interfaces
+.implements Landroid/view/animation/Interpolator;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/android/internal/policy/impl/keyguard/sec/LensFlareView;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x1
+    name = "QuintEaseOut"
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/android/internal/policy/impl/keyguard/sec/LensFlareView;
+
+
+# direct methods
+.method public constructor <init>(Lcom/android/internal/policy/impl/keyguard/sec/LensFlareView;)V
+    .registers 2
+
+    .prologue
+    .line 1106
+    iput-object p1, p0, Lcom/android/internal/policy/impl/keyguard/sec/LensFlareView$QuintEaseOut;->this$0:Lcom/android/internal/policy/impl/keyguard/sec/LensFlareView;
+
+    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public getInterpolation(F)F
+    .registers 4
+    .param p1, "input"    # F
+
+    .prologue
+    const/high16 v1, 0x3f800000
+
+    .line 1108
+    div-float v0, p1, v1
+
+    sub-float p1, v0, v1
+
+    mul-float v0, p1, p1
+
+    mul-float/2addr v0, p1
+
+    mul-float/2addr v0, p1
+
+    mul-float/2addr v0, p1
+
+    add-float/2addr v0, v1
+
+    return v0
+.end method
