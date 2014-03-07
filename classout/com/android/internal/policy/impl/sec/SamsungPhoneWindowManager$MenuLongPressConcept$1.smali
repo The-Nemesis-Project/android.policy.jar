@@ -44,6 +44,11 @@
     :try_start_0
     iget-object v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$MenuLongPressConcept$1;->this$1:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$MenuLongPressConcept;
 
+    # invokes: Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$MenuLongPressConcept;->componentType()V
+    invoke-static {v3}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$MenuLongPressConcept;->access$1501(Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$MenuLongPressConcept;)V
+
+    iget-object v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$MenuLongPressConcept$1;->this$1:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$MenuLongPressConcept;
+
     iget-object v3, v3, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$MenuLongPressConcept;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
 
     invoke-virtual {v3}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->getCurrentTopActivity()Landroid/content/ComponentName;
@@ -52,7 +57,7 @@
 
     .line 3439
     .local v2, "topActivity":Landroid/content/ComponentName;
-    if-eqz v2, :cond_4f
+    if-eqz v2, :cond_54
 
     .line 3441
     new-instance v1, Landroid/content/Intent;
@@ -127,25 +132,25 @@
     .line 3455
     .end local v1    # "intent":Landroid/content/Intent;
     .end local v2    # "topActivity":Landroid/content/ComponentName;
-    :goto_4e
+    :goto_53
     return-void
 
     .line 3450
     .restart local v2    # "topActivity":Landroid/content/ComponentName;
-    :cond_4f
+    :cond_54
     const-string v3, "SamsungWindowManager"
 
     const-string v4, "handleMenuLongPress: Unknown top activity!"
 
     invoke-static {v3, v4}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_56
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_56} :catch_57
+    :try_end_5b
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_5b} :catch_5c
 
-    goto :goto_4e
+    goto :goto_53
 
     .line 3452
     .end local v2    # "topActivity":Landroid/content/ComponentName;
-    :catch_57
+    :catch_5c
     move-exception v0
 
     .line 3453
@@ -172,5 +177,5 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_4e
+    goto :goto_53
 .end method

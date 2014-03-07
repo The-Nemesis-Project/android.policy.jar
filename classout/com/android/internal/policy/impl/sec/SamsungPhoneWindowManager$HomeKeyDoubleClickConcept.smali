@@ -212,9 +212,18 @@
 
     iget v2, v2, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mDoubleTapBehavior:I
 
-    if-gtz v2, :cond_30
+    if-gtz v2, :cond_38
 
     .line 4090
+    iget-object v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
+
+    # invokes: Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->intentType()Z
+    invoke-static {v3}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->access$903(Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_38
+
     const-string v2, "HomeKeyDoubleClick"
 
     const-string v3, "Home double click behavior is disabled"
@@ -224,14 +233,14 @@
     goto :goto_8
 
     .line 4091
-    :cond_30
+    :cond_38
     iget-object v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
 
     iget v2, v2, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mDoubleTapBehavior:I
 
     const/4 v3, 0x1
 
-    if-ne v2, v3, :cond_3b
+    if-ne v2, v3, :cond_43
 
     .line 4092
     invoke-virtual {p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->startVoiceCommandActivity()V
@@ -239,14 +248,14 @@
     goto :goto_8
 
     .line 4093
-    :cond_3b
+    :cond_43
     iget-object v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
 
     iget v2, v2, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mDoubleTapBehavior:I
 
     const/4 v3, 0x2
 
-    if-ne v2, v3, :cond_46
+    if-ne v2, v3, :cond_4e
 
     .line 4094
     invoke-virtual {p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->startAlwaysActivity()V
@@ -254,7 +263,7 @@
     goto :goto_8
 
     .line 4096
-    :cond_46
+    :cond_4e
     invoke-virtual {p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->startVoiceCommandActivity()V
 
     goto :goto_8
@@ -1177,13 +1186,18 @@
     .line 4101
     iget-object v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
 
+    # invokes: Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->intentType()Z
+    invoke-static {v3}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->access$903(Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;)Z
+
+    iget-object v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
+
     iget-object v3, v3, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPWM:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-virtual {v3}, Lcom/android/internal/policy/impl/PhoneWindowManager;->isKeyguardLocked()Z
 
     move-result v3
 
-    if-eqz v3, :cond_5b
+    if-eqz v3, :cond_60
 
     iget-object v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
 
@@ -1195,10 +1209,10 @@
 
     .line 4102
     .local v1, "isSecureLock":Z
-    :goto_13
+    :goto_18
     iget-boolean v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->mSentHomeDownToApp:Z
 
-    if-nez v3, :cond_58
+    if-nez v3, :cond_5d
 
     .line 4103
     iget-object v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
@@ -1207,10 +1221,10 @@
 
     move-result v3
 
-    if-eqz v3, :cond_68
+    if-eqz v3, :cond_6d
 
     .line 4105
-    :try_start_1f
+    :try_start_24
     const-string v3, "HomeKeyDoubleClick"
 
     const-string v4, "voicetalk launch"
@@ -1242,11 +1256,11 @@
 
     const-string v5, "AUTO_LISTEN"
 
-    if-nez v1, :cond_5d
+    if-nez v1, :cond_62
 
     const/4 v3, 0x1
 
-    :goto_41
+    :goto_46
     invoke-virtual {v4, v5, v3}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
 
     .line 4109
@@ -1268,33 +1282,33 @@
     iget-object v4, v4, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVoiceTalkIntent:Landroid/content/Intent;
 
     invoke-virtual {v3, v4}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
-    :try_end_58
-    .catch Landroid/content/ActivityNotFoundException; {:try_start_1f .. :try_end_58} :catch_5f
+    :try_end_5d
+    .catch Landroid/content/ActivityNotFoundException; {:try_start_24 .. :try_end_5d} :catch_64
 
     .line 4122
-    :cond_58
-    :goto_58
+    :cond_5d
+    :goto_5d
     iput-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$HomeKeyDoubleClickConcept;->mSentHomeDownToApp:Z
 
     .line 4123
     return-void
 
     .end local v1    # "isSecureLock":Z
-    :cond_5b
+    :cond_60
     move v1, v2
 
     .line 4101
-    goto :goto_13
+    goto :goto_18
 
     .restart local v1    # "isSecureLock":Z
-    :cond_5d
+    :cond_62
     move v3, v2
 
     .line 4108
-    goto :goto_41
+    goto :goto_46
 
     .line 4111
-    :catch_5f
+    :catch_64
     move-exception v0
 
     .line 4112
@@ -1305,16 +1319,16 @@
 
     invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_58
+    goto :goto_5d
 
     .line 4116
     .end local v0    # "ex":Landroid/content/ActivityNotFoundException;
-    :cond_68
+    :cond_6d
     const-string v3, "HomeKeyDoubleClick"
 
     const-string v4, "Device is not provisioned, not launch voicetalk."
 
     invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_58
+    goto :goto_5d
 .end method

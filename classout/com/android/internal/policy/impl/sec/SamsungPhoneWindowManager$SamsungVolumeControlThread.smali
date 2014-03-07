@@ -423,42 +423,53 @@
     .line 4318
     iget-object v4, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$SamsungVolumeControlThread;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
 
+    iget-object v4, v4, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPWM:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    invoke-virtual {v4}, Lcom/android/internal/policy/impl/PhoneWindowManager;->isVolumeBlocking()Z
+
+    move-result v4
+
+    if-nez v4, :cond_12
+
+    iget-object v4, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$SamsungVolumeControlThread;->this$0:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
+
     invoke-virtual {v4}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->getAudioManager()Landroid/media/AudioManager;
 
     move-result-object v1
 
     .line 4319
     .local v1, "audioManager":Landroid/media/AudioManager;
-    if-nez v1, :cond_9
+    if-nez v1, :cond_13
 
     .line 4355
-    :goto_8
+    :cond_12
+    :goto_12
     return-void
 
     .line 4323
-    :cond_9
-    :try_start_9
+    :cond_13
+    :try_start_13
     invoke-virtual {v1}, Landroid/media/AudioManager;->dismissVolumePanel()V
 
     .line 4324
-    sparse-switch p2, :sswitch_data_52
+    sparse-switch p2, :sswitch_data_5c
 
-    goto :goto_8
+    goto :goto_12
 
     .line 4340
-    :sswitch_10
+    :sswitch_1a
     const/4 v4, 0x1
 
     const/4 v5, 0x0
 
     invoke-virtual {v1, v4, p1, v5}, Landroid/media/AudioManager;->adjustSuggestedStreamVolume(III)V
-    :try_end_15
-    .catch Ljava/lang/Exception; {:try_start_9 .. :try_end_15} :catch_16
+    :try_end_1f
+    .catch Ljava/lang/Exception; {:try_start_13 .. :try_end_1f} :catch_20
 
-    goto :goto_8
+    goto :goto_12
 
     .line 4352
-    :catch_16
+    :catch_20
     move-exception v2
 
     .line 4353
@@ -485,12 +496,12 @@
 
     invoke-static {v4, v5}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_8
+    goto :goto_12
 
     .line 4326
     .end local v2    # "e":Ljava/lang/Exception;
-    :sswitch_30
-    :try_start_30
+    :sswitch_3a
+    :try_start_3a
     new-instance v3, Landroid/view/KeyEvent;
 
     const/4 v4, 0x0
@@ -505,11 +516,11 @@
 
     invoke-virtual {v1, v3, v4}, Landroid/media/AudioManager;->handleKeyDown(Landroid/view/KeyEvent;I)V
 
-    goto :goto_8
+    goto :goto_12
 
     .line 4332
     .end local v3    # "muteEvent":Landroid/view/KeyEvent;
-    :sswitch_3e
+    :sswitch_48
     new-instance v0, Landroid/view/KeyEvent;
 
     const/4 v4, 0x0
@@ -524,32 +535,32 @@
 
     invoke-virtual {v1, v0, v4}, Landroid/media/AudioManager;->handleKeyDown(Landroid/view/KeyEvent;I)V
 
-    goto :goto_8
+    goto :goto_12
 
     .line 4346
     .end local v0    # "JogEvent":Landroid/view/KeyEvent;
-    :sswitch_4c
+    :sswitch_56
     const/4 v4, -0x1
 
     const/4 v5, 0x0
 
     invoke-virtual {v1, v4, p1, v5}, Landroid/media/AudioManager;->adjustSuggestedStreamVolume(III)V
-    :try_end_51
-    .catch Ljava/lang/Exception; {:try_start_30 .. :try_end_51} :catch_16
+    :try_end_5b
+    .catch Ljava/lang/Exception; {:try_start_3a .. :try_end_5b} :catch_20
 
-    goto :goto_8
+    goto :goto_12
 
     .line 4324
-    :sswitch_data_52
+    :sswitch_data_5c
     .sparse-switch
-        0x18 -> :sswitch_10
-        0x19 -> :sswitch_4c
-        0xa4 -> :sswitch_30
-        0xa8 -> :sswitch_10
-        0xa9 -> :sswitch_4c
-        0xf1 -> :sswitch_4c
-        0xf2 -> :sswitch_10
-        0xf3 -> :sswitch_3e
+        0x18 -> :sswitch_1a
+        0x19 -> :sswitch_56
+        0xa4 -> :sswitch_3a
+        0xa8 -> :sswitch_1a
+        0xa9 -> :sswitch_56
+        0xf1 -> :sswitch_56
+        0xf2 -> :sswitch_1a
+        0xf3 -> :sswitch_48
     .end sparse-switch
 .end method
 

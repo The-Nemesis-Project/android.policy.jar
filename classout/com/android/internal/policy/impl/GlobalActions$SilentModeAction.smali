@@ -380,9 +380,22 @@
 
     .prologue
     .line 1879
+    # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mMinPowerMenu:Z
+    invoke-static {}, Lcom/android/internal/policy/impl/GlobalActions;->access$001()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_8
+
+    const/4 v0, 0x0
+
+    :goto_7
+    return v0
+
+    :cond_8
     const/4 v0, 0x1
 
-    return v0
+    goto :goto_7
 .end method
 
 .method public showDuringKeyguard()Z

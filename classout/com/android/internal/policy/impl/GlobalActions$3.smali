@@ -553,7 +553,16 @@
     .registers 4
 
     .prologue
+    const/4 v0, 0x0
+
     .line 601
+    # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mMinPowerMenu:Z
+    invoke-static {}, Lcom/android/internal/policy/impl/GlobalActions;->access$001()Z
+
+    move-result v1
+
+    if-nez v1, :cond_2a
+
     const-string v0, "LGT"
 
     const-string v1, ""
@@ -562,7 +571,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_24
+    if-eqz v0, :cond_2b
 
     .line 602
     const-string v0, "lock"
@@ -588,19 +597,20 @@
 
     move-result v0
 
-    if-eqz v0, :cond_24
+    if-eqz v0, :cond_2b
 
     .line 603
     const/4 v0, 0x0
 
     .line 606
-    :goto_23
+    :cond_2a
+    :goto_2a
     return v0
 
-    :cond_24
+    :cond_2b
     const/4 v0, 0x1
 
-    goto :goto_23
+    goto :goto_2a
 .end method
 
 .method public showDuringKeyguard()Z

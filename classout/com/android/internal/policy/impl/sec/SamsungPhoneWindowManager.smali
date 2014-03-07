@@ -1048,6 +1048,19 @@
     return-void
 .end method
 
+.method static synthetic access$903(Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;)Z
+    .registers 2
+    .param p0, "x0"    # Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;
+
+    .prologue
+    .line 218
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->intentType()Z
+
+    move-result v0
+
+    return v0
+.end method
+
 .method private applyCoverSwitchState()V
     .registers 4
 
@@ -2051,6 +2064,45 @@
     return-void
 .end method
 
+.method private intentType()Z
+    .registers 4
+
+    .prologue
+    .line 1696
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "custom_home_intent"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v0
+
+    .local v0, "result":I
+    if-eqz v0, :cond_19
+
+    const-string v2, "android.intent.action.SEARCH_LONG_PRESS"
+
+    :goto_11
+    new-instance v1, Landroid/content/Intent;
+
+    invoke-direct {v1, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    iput-object v1, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVoiceTalkIntent:Landroid/content/Intent;
+
+    return v0
+
+    :cond_19
+    const-string v2, "android.intent.action.VOICE_COMMAND"
+
+    goto :goto_11
+.end method
+
 .method private interceptAccessControlChord()V
     .registers 8
 
@@ -2458,25 +2510,17 @@
 
     .line 2702
     :cond_a
-    iget-object v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPWM:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    invoke-virtual {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->hasNavigationBar()Z
-
-    move-result v2
-
-    if-nez v2, :cond_bc
-
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeKeyTriggered:Z
 
-    if-eqz v2, :cond_bc
+    if-eqz v2, :cond_b4
 
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeUpKeyTriggered:Z
 
-    if-eqz v2, :cond_bc
+    if-eqz v2, :cond_b4
 
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeDownKeyTriggered:Z
 
-    if-nez v2, :cond_bc
+    if-nez v2, :cond_b4
 
     .line 2703
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
@@ -2491,7 +2535,7 @@
 
     cmp-long v2, v0, v2
 
-    if-gtz v2, :cond_80
+    if-gtz v2, :cond_78
 
     iget-wide v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeKeyTime:J
 
@@ -2499,12 +2543,12 @@
 
     cmp-long v2, v0, v2
 
-    if-gtz v2, :cond_80
+    if-gtz v2, :cond_78
 
     .line 2706
     sget-boolean v2, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->SAFE_DEBUG:Z
 
-    if-eqz v2, :cond_6a
+    if-eqz v2, :cond_62
 
     const-string v2, "SamsungWindowManager"
 
@@ -2559,7 +2603,7 @@
     invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 2707
-    :cond_6a
+    :cond_62
     iput-boolean v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeUpKeyConsumedByScreenRecordChord:Z
 
     .line 2708
@@ -2585,7 +2629,7 @@
     goto :goto_9
 
     .line 2714
-    :cond_80
+    :cond_78
     sget-boolean v2, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->SAFE_DEBUG:Z
 
     if-eqz v2, :cond_9
@@ -2646,15 +2690,7 @@
 
     .line 2717
     .end local v0    # "now":J
-    :cond_bc
-    iget-object v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPWM:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    invoke-virtual {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->hasNavigationBar()Z
-
-    move-result v2
-
-    if-eqz v2, :cond_9
-
+    :cond_b4
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeUpKeyTriggered:Z
 
     if-eqz v2, :cond_9
@@ -2680,7 +2716,7 @@
 
     cmp-long v2, v0, v2
 
-    if-gtz v2, :cond_138
+    if-gtz v2, :cond_128
 
     iget-wide v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPowerKeyTime:J
 
@@ -2688,12 +2724,12 @@
 
     cmp-long v2, v0, v2
 
-    if-gtz v2, :cond_138
+    if-gtz v2, :cond_128
 
     .line 2722
     sget-boolean v2, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->SAFE_DEBUG:Z
 
-    if-eqz v2, :cond_11c
+    if-eqz v2, :cond_10c
 
     const-string v2, "SamsungWindowManager"
 
@@ -2748,7 +2784,7 @@
     invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 2723
-    :cond_11c
+    :cond_10c
     iput-boolean v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeUpKeyConsumedByScreenRecordChord:Z
 
     .line 2724
@@ -2779,7 +2815,7 @@
     goto/16 :goto_9
 
     .line 2731
-    :cond_138
+    :cond_128
     sget-boolean v2, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->SAFE_DEBUG:Z
 
     if-eqz v2, :cond_9
@@ -5713,6 +5749,26 @@
     goto :goto_18
 .end method
 
+.method public handleVolumeAfterAbort(II)V
+    .registers 4
+    .param p1, "stream"    # I
+    .param p2, "keycode"    # I
+
+    .prologue
+    .line 8013
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mSamsungVolumeControlThread:Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$SamsungVolumeControlThread;
+
+    if-nez v0, :cond_5
+
+    :goto_4
+    return-void
+
+    :cond_5
+    invoke-virtual {v0, p1, p2}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$SamsungVolumeControlThread;->handleVolume(II)V
+
+    goto :goto_4
+.end method
+
 .method public init(Landroid/content/Context;Lcom/android/internal/policy/impl/PhoneWindowManager;Landroid/view/IWindowManager;Landroid/view/WindowManagerPolicy$WindowManagerFuncs;Lcom/android/internal/policy/impl/keyguard/KeyguardViewMediator;)V
     .registers 16
     .param p1, "context"    # Landroid/content/Context;
@@ -5973,13 +6029,7 @@
     invoke-virtual {v6, v7}, Landroid/content/Intent;->setComponent(Landroid/content/ComponentName;)Landroid/content/Intent;
 
     .line 674
-    new-instance v6, Landroid/content/Intent;
-
-    const-string v7, "android.intent.action.VOICE_COMMAND"
-
-    invoke-direct {v6, v7}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    iput-object v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVoiceTalkIntent:Landroid/content/Intent;
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->intentType()Z
 
     .line 675
     iget-object v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVoiceTalkIntent:Landroid/content/Intent;
@@ -6168,14 +6218,14 @@
     .line 715
     iget-boolean v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->USE_SET_INTEGRATOR_HAPTIC:Z
 
-    if-eqz v6, :cond_1b9
+    if-eqz v6, :cond_1b3
 
     .line 716
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
 
     move-result-object v6
 
-    if-eqz v6, :cond_233
+    if-eqz v6, :cond_22d
 
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
 
@@ -6183,7 +6233,7 @@
 
     .line 719
     .local v0, "looper":Landroid/os/Looper;
-    :goto_1b0
+    :goto_1aa
     new-instance v6, Lcom/immersion/android/haptics/HapticFeedbackManager;
 
     iget-object v7, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mContext:Landroid/content/Context;
@@ -6194,12 +6244,12 @@
 
     .line 731
     .end local v0    # "looper":Landroid/os/Looper;
-    :cond_1b9
+    :cond_1b3
     invoke-static {}, Lcom/android/internal/policy/impl/sec/SamsungPolicyProperties;->isSupportGestureWithIRSensor()Z
 
     move-result v6
 
-    if-eqz v6, :cond_1c8
+    if-eqz v6, :cond_1c2
 
     .line 732
     new-instance v6, Lcom/samsung/android/service/gesture/TspInputEventObserver;
@@ -6211,21 +6261,21 @@
     iput-object v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mTspInputEventObserver:Lcom/samsung/android/service/gesture/TspInputEventObserver;
 
     .line 736
-    :cond_1c8
+    :cond_1c2
     invoke-static {}, Lcom/android/internal/policy/impl/sec/SamsungPolicyProperties;->isSupportGestureWithIRSensor()Z
 
     move-result v6
 
-    if-nez v6, :cond_1d4
+    if-nez v6, :cond_1ce
 
     invoke-static {}, Lcom/android/internal/policy/impl/sec/SamsungPolicyProperties;->isSupportEasyOneHand()Z
 
     move-result v6
 
-    if-eqz v6, :cond_1e3
+    if-eqz v6, :cond_1dd
 
     .line 737
-    :cond_1d4
+    :cond_1ce
     invoke-virtual {p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->initTouchControllerForGesture()V
 
     .line 738
@@ -6242,14 +6292,14 @@
     invoke-static {v6, v7, v8}, Landroid/provider/Settings$System;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
 
     .line 744
-    :cond_1e3
+    :cond_1dd
     invoke-virtual {p1}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v4
 
     .line 745
     .local v4, "pm":Landroid/content/pm/PackageManager;
-    if-eqz v4, :cond_20b
+    if-eqz v4, :cond_205
 
     .line 747
     const-string v6, "com.sec.feature.spen_usp"
@@ -6286,7 +6336,7 @@
     invoke-static {v6, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 751
-    :cond_20b
+    :cond_205
     iget-object v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mContext:Landroid/content/Context;
 
     invoke-static {v6}, Lcom/android/internal/policy/impl/sec/SamsungPolicyProperties;->hasSPenFeature(Landroid/content/Context;)Z
@@ -6298,14 +6348,14 @@
     .line 752
     iget-boolean v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHasSPenUspFeature:Z
 
-    if-eqz v6, :cond_226
+    if-eqz v6, :cond_220
 
     .line 753
     iget v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mSpenUspFeatureLevel:I
 
     const/4 v7, 0x2
 
-    if-eq v6, v7, :cond_226
+    if-eq v6, v7, :cond_220
 
     .line 754
     new-instance v5, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$SettingsObserverForSPen;
@@ -6320,7 +6370,7 @@
 
     .line 761
     .end local v5    # "settingObserverForSPen":Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager$SettingsObserverForSPen;
-    :cond_226
+    :cond_220
     iget-object v6, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mContext:Landroid/content/Context;
 
     const-string v7, "phone"
@@ -6338,12 +6388,12 @@
 
     .line 716
     .end local v4    # "pm":Landroid/content/pm/PackageManager;
-    :cond_233
+    :cond_22d
     invoke-static {}, Landroid/os/Looper;->myLooper()Landroid/os/Looper;
 
     move-result-object v0
 
-    goto/16 :goto_1b0
+    goto/16 :goto_1aa
 .end method
 
 .method initTouchControllerForGesture()V
@@ -6421,7 +6471,7 @@
 
     .line 1014
     .local v2, "keyCode":I
-    sparse-switch v2, :sswitch_data_1d8
+    sparse-switch v2, :sswitch_data_1d0
 
     .line 1183
     :cond_14
@@ -6686,17 +6736,9 @@
     goto/16 :goto_14
 
     .line 1095
-    :sswitch_e5
-    iget-object v5, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPWM:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    invoke-virtual {v5}, Lcom/android/internal/policy/impl/PhoneWindowManager;->hasNavigationBar()Z
-
-    move-result v5
-
-    if-nez v5, :cond_14
-
     .line 1096
-    if-eqz v1, :cond_11b
+    :sswitch_e5
+    if-eqz v1, :cond_113
 
     .line 1097
     if-eqz p3, :cond_14
@@ -6749,7 +6791,7 @@
     goto/16 :goto_14
 
     .line 1110
-    :cond_11b
+    :cond_113
     iput-boolean v4, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeKeyTriggered:Z
 
     .line 1111
@@ -6764,7 +6806,7 @@
     goto/16 :goto_14
 
     .line 1119
-    :sswitch_128
+    :sswitch_120
     invoke-static {}, Lcom/android/internal/policy/impl/sec/SamsungPolicyProperties;->isCameraSpecialized()Z
 
     move-result v5
@@ -6772,7 +6814,7 @@
     if-eqz v5, :cond_14
 
     .line 1120
-    if-eqz v1, :cond_15b
+    if-eqz v1, :cond_153
 
     .line 1121
     if-eqz p3, :cond_14
@@ -6822,7 +6864,7 @@
     goto/16 :goto_14
 
     .line 1133
-    :cond_15b
+    :cond_153
     iput-boolean v4, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mFlashKeyTriggered:Z
 
     .line 1134
@@ -6837,7 +6879,7 @@
     goto/16 :goto_14
 
     .line 1142
-    :sswitch_168
+    :sswitch_160
     invoke-static {}, Lcom/android/internal/policy/impl/sec/SamsungPolicyProperties;->isCameraSpecialized()Z
 
     move-result v5
@@ -6845,7 +6887,7 @@
     if-eqz v5, :cond_14
 
     .line 1143
-    if-eqz v1, :cond_19b
+    if-eqz v1, :cond_193
 
     .line 1144
     if-eqz p3, :cond_14
@@ -6895,7 +6937,7 @@
     goto/16 :goto_14
 
     .line 1156
-    :cond_19b
+    :cond_193
     iput-boolean v4, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mCameraRecordKeyTriggered:Z
 
     .line 1157
@@ -6910,8 +6952,8 @@
     goto/16 :goto_14
 
     .line 1165
-    :sswitch_1a8
-    if-eqz v1, :cond_1c7
+    :sswitch_1a0
+    if-eqz v1, :cond_1bf
 
     .line 1166
     if-eqz p3, :cond_14
@@ -6947,7 +6989,7 @@
     goto/16 :goto_14
 
     .line 1174
-    :cond_1c7
+    :cond_1bf
     iput-boolean v4, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mWiFiProtectedSetupKeyTriggered:Z
 
     .line 1175
@@ -6967,7 +7009,7 @@
     .line 1014
     nop
 
-    :sswitch_data_1d8
+    :sswitch_data_1d0
     .sparse-switch
         0x3 -> :sswitch_e5
         0x18 -> :sswitch_17
@@ -6975,9 +7017,9 @@
         0x1a -> :sswitch_a4
         0xa8 -> :sswitch_17
         0xa9 -> :sswitch_17
-        0xf4 -> :sswitch_168
-        0xfa -> :sswitch_128
-        0x108 -> :sswitch_1a8
+        0xf4 -> :sswitch_160
+        0xfa -> :sswitch_120
+        0x108 -> :sswitch_1a0
     .end sparse-switch
 .end method
 
@@ -7005,39 +7047,30 @@
 
     .line 2434
     :cond_c
-    iget-object v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPWM:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    invoke-virtual {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->hasNavigationBar()Z
-
-    move-result v2
-
-    if-nez v2, :cond_1c
-
     iget-object v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mContext:Landroid/content/Context;
 
     invoke-static {v2}, Lcom/android/internal/policy/impl/sec/SamsungPolicyProperties;->hasFolderTypeFeature(Landroid/content/Context;)Z
 
     move-result v2
 
-    if-eqz v2, :cond_94
+    if-eqz v2, :cond_8c
 
     .line 2436
-    :cond_1c
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeDownKeyTriggered:Z
 
-    if-eqz v2, :cond_59
+    if-eqz v2, :cond_51
 
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPowerKeyTriggered:Z
 
-    if-eqz v2, :cond_59
+    if-eqz v2, :cond_51
 
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeUpKeyTriggered:Z
 
-    if-nez v2, :cond_59
+    if-nez v2, :cond_51
 
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeKeyTriggered:Z
 
-    if-nez v2, :cond_59
+    if-nez v2, :cond_51
 
     .line 2437
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
@@ -7094,7 +7127,7 @@
 
     .line 2448
     .end local v0    # "now":J
-    :cond_59
+    :cond_51
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mFlashKeyTriggered:Z
 
     if-eqz v2, :cond_b
@@ -7163,7 +7196,7 @@
 
     .line 2461
     .end local v0    # "now":J
-    :cond_94
+    :cond_8c
     iget-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeKeyTriggered:Z
 
     if-eqz v2, :cond_b
@@ -8776,51 +8809,42 @@
 
     .prologue
     .line 1411
-    iget-object v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mPWM:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    invoke-virtual {v0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->hasNavigationBar()Z
-
-    move-result v0
-
-    if-eqz v0, :cond_10
-
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeDownKeyTriggered:Z
 
-    if-nez v0, :cond_20
+    if-nez v0, :cond_18
 
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVolumeUpKeyTriggered:Z
 
-    if-nez v0, :cond_20
+    if-nez v0, :cond_18
 
-    :cond_10
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeKeyTriggered:Z
 
-    if-nez v0, :cond_20
+    if-nez v0, :cond_18
 
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mFlashKeyTriggered:Z
 
-    if-nez v0, :cond_20
+    if-nez v0, :cond_18
 
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mCameraRecordKeyTriggered:Z
 
-    if-nez v0, :cond_20
+    if-nez v0, :cond_18
 
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mWiFiProtectedSetupKeyTriggered:Z
 
-    if-eqz v0, :cond_22
+    if-eqz v0, :cond_1a
 
     .line 1414
-    :cond_20
+    :cond_18
     const/4 v0, 0x1
 
     .line 1416
-    :goto_21
+    :goto_19
     return v0
 
-    :cond_22
+    :cond_1a
     const/4 v0, 0x0
 
-    goto :goto_21
+    goto :goto_19
 .end method
 
 .method public isConsumedKeyCombination(Landroid/view/KeyEvent;)Z
@@ -12377,9 +12401,20 @@
     const/4 v2, 0x1
 
     .line 4195
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->intentType()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_b
+
+    iput-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeDoubleClickBehavior:Z
+
+    goto :goto_21
+
+    :cond_b
     iget v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mDoubleTapBehavior:I
 
-    if-ne v0, v2, :cond_22
+    if-ne v0, v2, :cond_2b
 
     .line 4196
     iget-object v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mVoiceTalkComponent:Landroid/content/ComponentName;
@@ -12388,7 +12423,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_16
+    if-nez v0, :cond_1f
 
     iget-object v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mSVoiceComponent:Landroid/content/ComponentName;
 
@@ -12396,38 +12431,38 @@
 
     move-result v0
 
-    if-eqz v0, :cond_1f
+    if-eqz v0, :cond_28
 
     .line 4198
-    :cond_16
+    :cond_1f
     iput-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeDoubleClickBehavior:Z
 
     .line 4212
-    :goto_18
+    :goto_21
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeKeyDoubleClickUseRecent:Z
 
-    if-eqz v0, :cond_1e
+    if-eqz v0, :cond_27
 
     .line 4213
     iput-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeDoubleClickBehavior:Z
 
     .line 4215
-    :cond_1e
+    :cond_27
     return-void
 
     .line 4200
-    :cond_1f
+    :cond_28
     iput-boolean v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeDoubleClickBehavior:Z
 
-    goto :goto_18
+    goto :goto_21
 
     .line 4202
-    :cond_22
+    :cond_2b
     iget v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mDoubleTapBehavior:I
 
     const/4 v1, 0x2
 
-    if-ne v0, v1, :cond_35
+    if-ne v0, v1, :cond_3e
 
     .line 4203
     iget-object v0, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mAlwaysComponet:Landroid/content/ComponentName;
@@ -12436,24 +12471,35 @@
 
     move-result v0
 
-    if-eqz v0, :cond_32
+    if-eqz v0, :cond_3b
 
     .line 4204
     iput-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeDoubleClickBehavior:Z
 
-    goto :goto_18
+    goto :goto_21
 
     .line 4206
-    :cond_32
+    :cond_3b
     iput-boolean v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeDoubleClickBehavior:Z
 
-    goto :goto_18
+    goto :goto_21
 
     .line 4209
-    :cond_35
+    :cond_3e
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->intentType()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_47
+
+    iput-boolean v2, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeDoubleClickBehavior:Z
+
+    goto :goto_21
+
+    :cond_47
     iput-boolean v3, p0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mHomeDoubleClickBehavior:Z
 
-    goto :goto_18
+    goto :goto_21
 .end method
 
 .method public updateSettings()V
@@ -12508,7 +12554,7 @@
 
     iget v13, v0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mDoubleTapBehavior:I
 
-    if-eq v13, v1, :cond_2f
+    if-eq v13, v1, :cond_2c
 
     .line 847
     move-object/from16 v0, p0
@@ -12516,10 +12562,10 @@
     iput v1, v0, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->mDoubleTapBehavior:I
 
     .line 848
+    :cond_2c
     invoke-virtual/range {p0 .. p0}, Lcom/android/internal/policy/impl/sec/SamsungPhoneWindowManager;->updateHomeDoubleClickBehavior()V
 
     .line 853
-    :cond_2f
     const-string v13, "send_emergency_message"
 
     const/4 v15, 0x0

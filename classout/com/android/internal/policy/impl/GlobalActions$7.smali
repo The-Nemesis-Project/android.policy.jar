@@ -36,7 +36,7 @@
 
 # virtual methods
 .method public onPress()V
-    .registers 5
+    .registers 7
 
     .prologue
     const/4 v3, 0x0
@@ -89,6 +89,13 @@
 
     .line 858
     :cond_28
+    # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mIsCoverOpen:Z
+    invoke-static {}, Lcom/android/internal/policy/impl/GlobalActions;->access$600()Z
+
+    move-result v1
+
+    if-nez v1, :cond_3e
+
     iget-object v0, p0, Lcom/android/internal/policy/impl/GlobalActions$7;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
 
     # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mWindowManagerFuncs:Landroid/view/WindowManagerPolicy$WindowManagerFuncs;
@@ -105,13 +112,128 @@
 
     invoke-interface {v0, v1}, Landroid/view/WindowManagerPolicy$WindowManagerFuncs;->reboot(Z)V
 
+    goto :goto_ab
+
+    :cond_3e
+    const/4 v5, 0x4
+
+    .line 8581
+    new-instance v1, Landroid/app/AlertDialog$Builder;
+
+    iget-object v2, p0, Lcom/android/internal/policy/impl/GlobalActions$7;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
+
+    # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mContext:Landroid/content/Context;
+    invoke-static {v2}, Lcom/android/internal/policy/impl/GlobalActions;->access$800(Lcom/android/internal/policy/impl/GlobalActions;)Landroid/content/Context;
+
+    move-result-object v2
+
+    invoke-direct {v1, v2}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
+
+    const-string v2, "Reboot Options"
+
+    invoke-virtual {v1, v2}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/android/internal/policy/impl/GlobalActions$SinglePressAction;->rebootOptions:[Ljava/lang/String;
+
+    const/4 v3, 0x0
+
+    new-instance v4, Lcom/android/internal/policy/impl/GlobalActions$7$2;
+
+    invoke-direct {v4, p0}, Lcom/android/internal/policy/impl/GlobalActions$7$2;-><init>(Lcom/android/internal/policy/impl/GlobalActions$7;)V
+
+    invoke-virtual {v1, v2, v3, v4}, Landroid/app/AlertDialog$Builder;->setSingleChoiceItems([Ljava/lang/CharSequence;ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v1
+
+    const v2, 0x104000a
+
+    new-instance v3, Lcom/android/internal/policy/impl/GlobalActions$7$1;
+
+    invoke-direct {v3, p0}, Lcom/android/internal/policy/impl/GlobalActions$7$1;-><init>(Lcom/android/internal/policy/impl/GlobalActions$7;)V
+
+    invoke-virtual {v1, v2, v3}, Landroid/app/AlertDialog$Builder;->setPositiveButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v1
+
+    const/high16 v2, 0x1040000
+
+    const/4 v3, 0x0
+
+    invoke-virtual {v1, v2, v3}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/android/internal/policy/impl/GlobalActions$7;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
+
+    # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mKeyguardShowing:Z
+    invoke-static {v1}, Lcom/android/internal/policy/impl/GlobalActions;->access$1800(Lcom/android/internal/policy/impl/GlobalActions;)Z
+
+    move-result v1
+
+    if-eqz v2, :cond_85
+
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v1
+
+    const/16 v2, 0x7d9
+
+    invoke-virtual {v1, v2}, Landroid/view/Window;->setType(I)V
+
+    goto :goto_8e
+
+    :cond_85
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v1
+
+    const/16 v2, 0x7d8
+
+    invoke-virtual {v1, v2}, Landroid/view/Window;->setType(I)V
+
+    :goto_8e
+    iget-object v1, p0, Lcom/android/internal/policy/impl/GlobalActions$7;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
+
+    # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mContext:Landroid/content/Context;
+    invoke-static {v1}, Lcom/android/internal/policy/impl/GlobalActions;->access$800(Lcom/android/internal/policy/impl/GlobalActions;)Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    const v2, 0x111000e
+
+    invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getBoolean(I)Z
+
+    move-result v1
+
+    if-nez v1, :cond_a8
+
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v5, v5}, Landroid/view/Window;->setFlags(II)V
+
+    :cond_a8
+    invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
+
     .line 859
+    :goto_ab
     # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mIsCoverOpen:Z
     invoke-static {}, Lcom/android/internal/policy/impl/GlobalActions;->access$600()Z
 
     move-result v0
 
-    if-nez v0, :cond_58
+    if-nez v0, :cond_cc
 
     .line 860
     # getter for: Lcom/android/internal/policy/impl/GlobalActions;->sIsSecondConfirming:Z
@@ -119,7 +241,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_5c
+    if-nez v0, :cond_d0
 
     .line 861
     # getter for: Lcom/android/internal/policy/impl/GlobalActions;->sIsConfirmingGuard:Ljava/lang/Object;
@@ -132,17 +254,17 @@
     .line 862
     const/4 v0, 0x0
 
-    :try_start_49
+    :try_start_bd
     # setter for: Lcom/android/internal/policy/impl/GlobalActions;->sIsConfirming:Z
     invoke-static {v0}, Lcom/android/internal/policy/impl/GlobalActions;->access$302(Z)Z
 
     .line 863
     monitor-exit v1
-    :try_end_4d
-    .catchall {:try_start_49 .. :try_end_4d} :catchall_59
+    :try_end_c1
+    .catchall {:try_start_bd .. :try_end_c1} :catchall_cd
 
     .line 867
-    :goto_4d
+    :goto_c1
     iget-object v0, p0, Lcom/android/internal/policy/impl/GlobalActions$7;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
 
     # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mHandler:Landroid/os/Handler;
@@ -155,26 +277,26 @@
     invoke-virtual {v0, v3, v1, v2}, Landroid/os/Handler;->sendEmptyMessageDelayed(IJ)Z
 
     .line 869
-    :cond_58
+    :cond_cc
     return-void
 
     .line 863
-    :catchall_59
+    :catchall_cd
     move-exception v0
 
-    :try_start_5a
+    :try_start_ce
     monitor-exit v1
-    :try_end_5b
-    .catchall {:try_start_5a .. :try_end_5b} :catchall_59
+    :try_end_cf
+    .catchall {:try_start_ce .. :try_end_cf} :catchall_cd
 
     throw v0
 
     .line 865
-    :cond_5c
+    :cond_d0
     # setter for: Lcom/android/internal/policy/impl/GlobalActions;->sIsSecondConfirming:Z
     invoke-static {v3}, Lcom/android/internal/policy/impl/GlobalActions;->access$102(Z)Z
 
-    goto :goto_4d
+    goto :goto_c1
 .end method
 
 .method public showBeforeProvisioning()Z

@@ -1,4 +1,4 @@
-.class Lcom/android/internal/policy/impl/GlobalActions$99$2;
+.class Lcom/android/internal/policy/impl/GlobalActions$7$2;
 .super Ljava/lang/Object;
 .source "GlobalActions.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/internal/policy/impl/GlobalActions$99;->onPress()V
+    value = Lcom/android/internal/policy/impl/GlobalActions$7;->onPress()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,16 +18,16 @@
 
 
 # instance fields
-.field final synthetic this$1:Lcom/android/internal/policy/impl/GlobalActions$99;
+.field final synthetic this$1:Lcom/android/internal/policy/impl/GlobalActions$7;
 
 
 # direct methods
-.method constructor <init>(Lcom/android/internal/policy/impl/GlobalActions$99;)V
+.method constructor <init>(Lcom/android/internal/policy/impl/GlobalActions$7;)V
     .registers 2
 
-    iput-object p1, p0, Lcom/android/internal/policy/impl/GlobalActions$99$2;->this$1:Lcom/android/internal/policy/impl/GlobalActions$99;
+    iput-object p1, p0, Lcom/android/internal/policy/impl/GlobalActions$7$2;->this$1:Lcom/android/internal/policy/impl/GlobalActions$7;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

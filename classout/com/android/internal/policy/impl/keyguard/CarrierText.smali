@@ -66,6 +66,28 @@
     return-void
 .end method
 
+.method private checkCarrierType()Z
+    .registers 4
+
+    .prologue
+    .line 261
+    iget-object v0, p0, Lcom/android/internal/policy/impl/keyguard/CarrierText;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "lockscreen_msg_type"
+
+    const/4 v2, 0x0
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v0
+
+    return v0
+.end method
+
 .method private concatenate(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/CharSequence;
     .registers 8
     .param p1, "plmn"    # Ljava/lang/CharSequence;
@@ -238,6 +260,28 @@
     const-string p1, ""
 
     goto :goto_52
+.end method
+
+.method private getCarrierColor()I
+    .registers 4
+
+    .prologue
+    .line 262
+    iget-object v0, p0, Lcom/android/internal/policy/impl/keyguard/CarrierText;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "lockscreen_msg_color"
+
+    const v2, -0x60607
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v0
+
+    return v0
 .end method
 
 .method private getCarrierHelpTextForSimState(Lcom/android/internal/telephony/IccCardConstants$State;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/CharSequence;
@@ -584,6 +628,26 @@
     .end packed-switch
 .end method
 
+.method private getCustomCarrier()Ljava/lang/CharSequence;
+    .registers 3
+
+    .prologue
+    .line 263
+    iget-object v0, p0, Lcom/android/internal/policy/impl/keyguard/CarrierText;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "lockscreen_custom_msg"
+
+    invoke-static {v0, v1}, Landroid/provider/Settings$Global;->getString(Landroid/content/ContentResolver;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method private getStatusForIccState(Lcom/android/internal/telephony/IccCardConstants$State;)Lcom/android/internal/policy/impl/keyguard/CarrierText$StatusMode;
     .registers 5
     .param p1, "simState"    # Lcom/android/internal/telephony/IccCardConstants$State;
@@ -889,7 +953,7 @@
 
     move-result v1
 
-    if-eqz v1, :cond_1d
+    if-eqz v1, :cond_31
 
     .line 88
     invoke-direct {p0, p2, p3}, Lcom/android/internal/policy/impl/keyguard/CarrierText;->concatenate(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/CharSequence;
@@ -900,10 +964,10 @@
     :goto_b
     sget-boolean v1, Lcom/android/internal/policy/impl/keyguard/KeyguardViewManager;->USE_UPPER_CASE:Z
 
-    if-eqz v1, :cond_24
+    if-eqz v1, :cond_38
 
     .line 94
-    if-eqz v0, :cond_22
+    if-eqz v0, :cond_36
 
     invoke-virtual {v0}, Ljava/lang/Object;->toString()Ljava/lang/String;
 
@@ -918,10 +982,29 @@
 
     .line 98
     :goto_1c
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/CarrierText;->getCarrierColor()I
+
+    move-result v1
+
+    invoke-virtual {p0, v1}, Landroid/widget/TextView;->setTextColor(I)V
+
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/CarrierText;->checkCarrierType()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_30
+
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/CarrierText;->getCustomCarrier()Ljava/lang/CharSequence;
+
+    move-result-object v1
+
+    invoke-virtual {p0, v1}, Lcom/android/internal/policy/impl/keyguard/CarrierText;->setText(Ljava/lang/CharSequence;)V
+
+    :cond_30
     return-void
 
     .line 91
-    :cond_1d
+    :cond_31
     invoke-direct {p0, p1, p2, p3}, Lcom/android/internal/policy/impl/keyguard/CarrierText;->getCarrierTextForSimState(Lcom/android/internal/telephony/IccCardConstants$State;Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/CharSequence;
 
     move-result-object v0
@@ -929,13 +1012,13 @@
     goto :goto_b
 
     .line 94
-    :cond_22
+    :cond_36
     const/4 v1, 0x0
 
     goto :goto_19
 
     .line 96
-    :cond_24
+    :cond_38
     invoke-virtual {p0, v0}, Lcom/android/internal/policy/impl/keyguard/CarrierText;->setText(Ljava/lang/CharSequence;)V
 
     goto :goto_1c

@@ -1,4 +1,4 @@
-.class Lcom/android/internal/policy/impl/GlobalActions$99$1;
+.class Lcom/android/internal/policy/impl/GlobalActions$7$1;
 .super Ljava/lang/Object;
 .source "GlobalActions.java"
 
@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/internal/policy/impl/GlobalActions$99;->onPress()V
+    value = Lcom/android/internal/policy/impl/GlobalActions$7;->onPress()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,14 +18,16 @@
 
 
 # instance fields
-.field final synthetic this$1:Lcom/android/internal/policy/impl/GlobalActions$99;
+.field final synthetic this$1:Lcom/android/internal/policy/impl/GlobalActions$7;
 
 
 # direct methods
-.method constructor <init>(Lcom/android/internal/policy/impl/GlobalActions$99;)V
+.method constructor <init>(Lcom/android/internal/policy/impl/GlobalActions$7;)V
     .registers 2
 
-    iput-object p1, p0, Lcom/android/internal/policy/impl/GlobalActions$99$1;->this$1:Lcom/android/internal/policy/impl/GlobalActions$99;
+    .prologue
+    .line 281
+    iput-object p1, p0, Lcom/android/internal/policy/impl/GlobalActions$7$1;->this$1:Lcom/android/internal/policy/impl/GlobalActions$7;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,30 +38,37 @@
 # virtual methods
 .method public onClick(Landroid/content/DialogInterface;I)V
     .registers 7
+    .param p1, "dialog"    # Landroid/content/DialogInterface;
+    .param p2, "whichButton"    # I
 
+    .prologue
     const/4 v2, 0x1
 
     const/4 v3, 0x0
 
+    .line 282
     sget v0, Lcom/android/internal/policy/impl/GlobalActions$SinglePressAction;->rebootMode:I
 
     const/4 v1, -0x1
 
     if-le v0, v1, :cond_20
 
+    .line 283
     sget v0, Lcom/android/internal/policy/impl/GlobalActions$SinglePressAction;->rebootMode:I
 
     const/4 v1, 0x4
 
-    if-eq v0, v1, :cond_4d
+    if-eq v0, v1, :cond_57
 
+    .line 284
     sget v0, Lcom/android/internal/policy/impl/GlobalActions$SinglePressAction;->rebootMode:I
 
-    if-eq v0, v2, :cond_2c
+    if-eq v0, v2, :cond_36
 
-    iget-object v0, p0, Lcom/android/internal/policy/impl/GlobalActions$99$1;->this$1:Lcom/android/internal/policy/impl/GlobalActions$99;
+    .line 285
+    iget-object v0, p0, Lcom/android/internal/policy/impl/GlobalActions$7$1;->this$1:Lcom/android/internal/policy/impl/GlobalActions$7;
 
-    iget-object v0, v0, Lcom/android/internal/policy/impl/GlobalActions$99;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
+    iget-object v0, v0, Lcom/android/internal/policy/impl/GlobalActions$7;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
 
     # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mContext:Landroid/content/Context;
     invoke-static {v0}, Lcom/android/internal/policy/impl/GlobalActions;->access$800(Lcom/android/internal/policy/impl/GlobalActions;)Landroid/content/Context;
@@ -75,10 +84,12 @@
     :goto_1d
     invoke-static {v0, v1, v3}, Lcom/android/server/power/ShutdownThread;->reboot(Landroid/content/Context;Ljava/lang/String;Z)V
 
+    .line 291
     :cond_20
     :goto_20
     return-void
 
+    .line 284
     :cond_21
     sget-object v1, Lcom/android/internal/policy/impl/GlobalActions$SinglePressAction;->rebootOptions:[Ljava/lang/String;
 
@@ -86,14 +97,26 @@
 
     aget-object v1, v1, v2
 
+    const-string v2, "Stock Recovery"
+
+    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_31
+
+    const-string v1, "Recovery"
+
+    :cond_31
     invoke-virtual {v1}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
     move-result-object v1
 
     goto :goto_1d
 
-    :cond_2c
-    :try_start_2c
+    .line 288
+    :cond_36
+    :try_start_36
     invoke-static {}, Ljava/lang/Runtime;->getRuntime()Ljava/lang/Runtime;
 
     move-result-object v0
@@ -127,20 +150,22 @@
     aput-object v3, v1, v2
 
     invoke-virtual {v0, v1}, Ljava/lang/Runtime;->exec([Ljava/lang/String;)Ljava/lang/Process;
-    :try_end_4a
-    .catch Ljava/lang/Exception; {:try_start_2c .. :try_end_4a} :catch_4b
+    :try_end_54
+    .catch Ljava/lang/Exception; {:try_start_36 .. :try_end_54} :catch_55
 
     goto :goto_20
 
-    :catch_4b
+    .line 290
+    :catch_55
     move-exception v0
 
     goto :goto_20
 
-    :cond_4d
-    iget-object v0, p0, Lcom/android/internal/policy/impl/GlobalActions$99$1;->this$1:Lcom/android/internal/policy/impl/GlobalActions$99;
+    .line 2901
+    :cond_57
+    iget-object v0, p0, Lcom/android/internal/policy/impl/GlobalActions$7$1;->this$1:Lcom/android/internal/policy/impl/GlobalActions$7;
 
-    iget-object v0, v0, Lcom/android/internal/policy/impl/GlobalActions$99;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
+    iget-object v0, v0, Lcom/android/internal/policy/impl/GlobalActions$7;->this$0:Lcom/android/internal/policy/impl/GlobalActions;
 
     # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mContext:Landroid/content/Context;
     invoke-static {v0}, Lcom/android/internal/policy/impl/GlobalActions;->access$800(Lcom/android/internal/policy/impl/GlobalActions;)Landroid/content/Context;

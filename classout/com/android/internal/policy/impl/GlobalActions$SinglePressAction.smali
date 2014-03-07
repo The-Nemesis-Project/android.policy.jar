@@ -35,8 +35,10 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .registers 3
+    .registers 4
 
+    .prologue
+    .line 1500
     const/4 v0, 0x4
 
     new-array v0, v0, [Ljava/lang/String;
@@ -49,19 +51,55 @@
 
     const/4 v1, 0x1
 
-    const-string v2, "Quick Reboot"
+    const-string v2, "Hotboot"
 
     aput-object v2, v0, v1
 
-    const/4 v1, 0x2
+    const-string v1, "ro.csc.sales_code"
 
-    const-string v2, "Download Mode"
+    invoke-static {v1}, Landroid/os/SystemProperties;->get(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    const-string v2, "ATT"
+
+    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_2e
+
+    const-string v2, "ro.recov.type"
+
+    const-string v3, "Unknown"
+
+    invoke-static {v2, v3}, Landroid/os/SystemProperties;->get(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    const-string v2, "hlteatt"
+
+    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_2e
+
+    const-string v2, "Stock Recovery"
+
+    goto :goto_30
+
+    :cond_2e
+    const-string v2, "Recovery"
+
+    :goto_30
+    const/4 v1, 0x2
 
     aput-object v2, v0, v1
 
     const/4 v1, 0x3
 
-    const-string v2, "Recovery"
+    const-string v2, "Download"
 
     aput-object v2, v0, v1
 

@@ -276,7 +276,7 @@
     iput v6, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mTransportState:I
 
     .line 142
-    const/4 v5, 0x5
+    const/16 v5, 0x8
 
     iput v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->MAX_WIDGETS:I
 
@@ -431,7 +431,7 @@
     .line 263
     sget-boolean v5, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->DEBUG:Z
 
-    if-eqz v5, :cond_96
+    if-eqz v5, :cond_97
 
     const-string v5, "KeyguardHostView"
 
@@ -440,7 +440,7 @@
     invoke-static {v5, v8}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 265
-    :cond_96
+    :cond_97
     iput-object p1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mContext:Landroid/content/Context;
 
     .line 266
@@ -470,11 +470,11 @@
 
     move-result v5
 
-    if-ne v5, v7, :cond_236
+    if-ne v5, v7, :cond_23d
 
     move v5, v6
 
-    :goto_b4
+    :goto_b5
     iput-boolean v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsEasyUxOn:Z
 
     .line 277
@@ -488,11 +488,11 @@
 
     move-result v5
 
-    if-ne v5, v7, :cond_239
+    if-ne v5, v7, :cond_240
 
     move v5, v6
 
-    :goto_c3
+    :goto_c4
     iput-boolean v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mHelpEsayUxOn:Z
 
     .line 280
@@ -517,13 +517,13 @@
 
     move-result v5
 
-    if-eqz v5, :cond_23c
+    if-eqz v5, :cond_243
 
     .line 284
     iput-boolean v7, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsCoverLockEnabled:Z
 
     .line 288
-    :goto_dd
+    :goto_de
     iget-object v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mContext:Landroid/content/Context;
 
     const-string v8, "device_policy"
@@ -536,7 +536,7 @@
 
     .line 290
     .local v1, "dpm":Landroid/app/admin/DevicePolicyManager;
-    if-eqz v1, :cond_f5
+    if-eqz v1, :cond_f6
 
     .line 291
     invoke-direct {p0, v1}, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->getDisabledFeatures(Landroid/app/admin/DevicePolicyManager;)I
@@ -553,7 +553,7 @@
     iput-boolean v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mCameraDisabled:Z
 
     .line 295
-    :cond_f5
+    :cond_f6
     invoke-static {}, Lcom/android/internal/widget/LockPatternUtils;->isSafeModeEnabled()Z
 
     move-result v5
@@ -565,7 +565,7 @@
 
     .line 300
     .local v4, "userContext":Landroid/content/Context;
-    :try_start_fc
+    :try_start_fd
     const-string v3, "system"
 
     .line 301
@@ -583,14 +583,14 @@
     invoke-direct {v10, v11}, Landroid/os/UserHandle;-><init>(I)V
 
     invoke-virtual {v5, v8, v9, v10}, Landroid/content/Context;->createPackageContextAsUser(Ljava/lang/String;ILandroid/os/UserHandle;)Landroid/content/Context;
-    :try_end_10d
-    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_fc .. :try_end_10d} :catch_240
+    :try_end_10e
+    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_fd .. :try_end_10e} :catch_247
 
     move-result-object v4
 
     .line 310
     .end local v3    # "packageName":Ljava/lang/String;
-    :goto_10e
+    :goto_10f
     new-instance v5, Landroid/appwidget/AppWidgetHost;
 
     const v8, 0x4b455947
@@ -644,11 +644,11 @@
 
     move-result v5
 
-    if-eqz v5, :cond_247
+    if-eqz v5, :cond_24e
 
     move v5, v7
 
-    :goto_145
+    :goto_146
     iput-boolean v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mUserSetupCompleted:Z
 
     .line 325
@@ -657,7 +657,7 @@
     .line 327
     iget-boolean v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mSafeModeEnabled:Z
 
-    if-eqz v5, :cond_155
+    if-eqz v5, :cond_156
 
     .line 328
     const-string v5, "KeyguardHostView"
@@ -667,12 +667,12 @@
     invoke-static {v5, v8}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 330
-    :cond_155
+    :cond_156
     iget v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mDisabledFeatures:I
 
     and-int/lit8 v5, v5, 0x1
 
-    if-eqz v5, :cond_162
+    if-eqz v5, :cond_163
 
     .line 331
     const-string v5, "KeyguardHostView"
@@ -682,12 +682,12 @@
     invoke-static {v5, v8}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 333
-    :cond_162
+    :cond_163
     iget v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mDisabledFeatures:I
 
     and-int/lit8 v5, v5, 0x2
 
-    if-eqz v5, :cond_16f
+    if-eqz v5, :cond_170
 
     .line 334
     const-string v5, "KeyguardHostView"
@@ -697,7 +697,7 @@
     invoke-static {v5, v8}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 336
-    :cond_16f
+    :cond_170
     invoke-virtual {p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v5
@@ -710,7 +710,7 @@
 
     .line 338
     .local v0, "accesibilityService":Ljava/lang/String;
-    if-eqz v0, :cond_18e
+    if-eqz v0, :cond_18f
 
     .line 339
     const-string v5, "(?i).*talkback.*"
@@ -724,7 +724,7 @@
     .line 340
     iget-boolean v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsTalkbackDrvModeOn:Z
 
-    if-eqz v5, :cond_24a
+    if-eqz v5, :cond_251
 
     .line 341
     const-string v5, "KeyguardHostView"
@@ -734,8 +734,8 @@
     invoke-static {v5, v8}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 350
-    :cond_18e
-    :goto_18e
+    :cond_18f
+    :goto_18f
     invoke-virtual {p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v5
@@ -746,11 +746,11 @@
 
     move-result v5
 
-    if-ne v5, v7, :cond_253
+    if-ne v5, v7, :cond_25a
 
     move v5, v7
 
-    :goto_19b
+    :goto_19c
     iput-boolean v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsVoiceUnlockOn:Z
 
     .line 351
@@ -789,17 +789,17 @@
 
     move-result v5
 
-    if-ne v5, v7, :cond_256
+    if-ne v5, v7, :cond_25d
 
     move v5, v7
 
-    :goto_1c4
+    :goto_1c5
     iput-boolean v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsMultipleLockOn:Z
 
     .line 356
     sget-boolean v5, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->DEBUG:Z
 
-    if-eqz v5, :cond_1e4
+    if-eqz v5, :cond_1e5
 
     const-string v5, "KeyguardHostView"
 
@@ -826,19 +826,25 @@
     invoke-static {v5, v8}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 359
-    :cond_1e4
+    :cond_1e5
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->checkSecWidg()Z
+
+    move-result v5
+
+    if-nez v5, :cond_200
+
     iget-object v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mLockPatternUtils:Lcom/android/internal/widget/LockPatternUtils;
 
     invoke-virtual {v5}, Lcom/android/internal/widget/LockPatternUtils;->isSecure()Z
 
     move-result v5
 
-    if-eqz v5, :cond_1f9
+    if-eqz v5, :cond_200
 
     .line 360
     sget-boolean v5, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->DEBUG:Z
 
-    if-eqz v5, :cond_1f7
+    if-eqz v5, :cond_1fe
 
     .line 361
     const-string v5, "KeyguardHostView"
@@ -848,11 +854,11 @@
     invoke-static {v5, v8}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 362
-    :cond_1f7
+    :cond_1fe
     iput-boolean v6, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsMultipleLockOn:Z
 
     .line 367
-    :cond_1f9
+    :cond_200
     const/4 v5, 0x4
 
     iput v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mDialogTheme:I
@@ -870,11 +876,11 @@
 
     move-result v5
 
-    if-ne v5, v7, :cond_20b
+    if-ne v5, v7, :cond_212
 
     move v6, v7
 
-    :cond_20b
+    :cond_212
     iput-boolean v6, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsWidgetPreloaded:Z
 
     .line 376
@@ -882,7 +888,7 @@
 
     move-result v5
 
-    if-eqz v5, :cond_22d
+    if-eqz v5, :cond_234
 
     .line 377
     iget-object v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mContext:Landroid/content/Context;
@@ -912,7 +918,7 @@
     invoke-virtual {v5, v6, v7}, Landroid/telephony/TelephonyManager;->listen(Landroid/telephony/PhoneStateListener;I)V
 
     .line 400
-    :cond_22d
+    :cond_234
     iget-object v5, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mContext:Landroid/content/Context;
 
     invoke-virtual {v5}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
@@ -927,28 +933,28 @@
     .end local v0    # "accesibilityService":Ljava/lang/String;
     .end local v1    # "dpm":Landroid/app/admin/DevicePolicyManager;
     .end local v4    # "userContext":Landroid/content/Context;
-    :cond_236
+    :cond_23d
     move v5, v7
 
     .line 274
-    goto/16 :goto_b4
+    goto/16 :goto_b5
 
-    :cond_239
+    :cond_240
     move v5, v7
 
     .line 277
-    goto/16 :goto_c3
+    goto/16 :goto_c4
 
     .line 286
-    :cond_23c
+    :cond_243
     iput-boolean v6, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsCoverLockEnabled:Z
 
-    goto/16 :goto_dd
+    goto/16 :goto_de
 
     .line 304
     .restart local v1    # "dpm":Landroid/app/admin/DevicePolicyManager;
     .restart local v4    # "userContext":Landroid/content/Context;
-    :catch_240
+    :catch_247
     move-exception v2
 
     .line 305
@@ -958,37 +964,37 @@
     .line 307
     move-object v4, p1
 
-    goto/16 :goto_10e
+    goto/16 :goto_10f
 
     .end local v2    # "e":Landroid/content/pm/PackageManager$NameNotFoundException;
-    :cond_247
+    :cond_24e
     move v5, v6
 
     .line 321
-    goto/16 :goto_145
+    goto/16 :goto_146
 
     .line 343
     .restart local v0    # "accesibilityService":Ljava/lang/String;
-    :cond_24a
+    :cond_251
     const-string v5, "KeyguardHostView"
 
     const-string v8, "tb off"
 
     invoke-static {v5, v8}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_18e
+    goto/16 :goto_18f
 
-    :cond_253
+    :cond_25a
     move v5, v6
 
     .line 350
-    goto/16 :goto_19b
+    goto/16 :goto_19c
 
-    :cond_256
+    :cond_25d
     move v5, v6
 
     .line 354
-    goto/16 :goto_1c4
+    goto/16 :goto_1c5
 .end method
 
 .method static synthetic access$000(Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;)Landroid/widget/TextView;
@@ -2545,6 +2551,50 @@
     const/4 v0, 0x0
 
     goto :goto_b
+.end method
+
+.method private checkLockType()Z
+    .registers 4
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 2239
+    iget-object v0, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "lockscreen_style_type"
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    return v1
+.end method
+
+.method private checkSecWidg()Z
+    .registers 4
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 2240
+    iget-object v0, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "allow_secure_widgets"
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    return v1
 .end method
 
 .method private cleanupAppWidgetIds()V
@@ -4704,7 +4754,7 @@
 
     aget v4, v4, v5
 
-    packed-switch v4, :pswitch_data_a6
+    packed-switch v4, :pswitch_data_ae
 
     move v1, v2
 
@@ -4715,11 +4765,17 @@
 
     .line 1869
     :pswitch_12
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->checkLockType()Z
+
+    move-result v1
+
+    if-nez v1, :cond_28
+
     invoke-static {}, Lcom/android/internal/policy/impl/keyguard/sec/KeyguardProperties;->isJapanFeature()Z
 
     move-result v1
 
-    if-eqz v1, :cond_26
+    if-eqz v1, :cond_2c
 
     .line 1870
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mActivityLauncher:Lcom/android/internal/policy/impl/keyguard/KeyguardActivityLauncher;
@@ -4730,21 +4786,22 @@
 
     move-result v1
 
-    if-eqz v1, :cond_26
+    if-eqz v1, :cond_2c
 
     .line 1871
+    :cond_28
     const v1, 0x1090088
 
     goto :goto_11
 
     .line 1873
-    :cond_26
+    :cond_2c
     const v1, 0x1090097
 
     goto :goto_11
 
     .line 1876
-    :pswitch_2a
+    :pswitch_30
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -4759,14 +4816,14 @@
 
     move-result v1
 
-    if-ne v1, v3, :cond_48
+    if-ne v1, v3, :cond_4e
 
     move v0, v3
 
     .line 1877
     .local v0, "isOnehand":Z
-    :goto_3a
-    if-ne v0, v3, :cond_4a
+    :goto_40
+    if-ne v0, v3, :cond_50
 
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mLockPatternUtils:Lcom/android/internal/widget/LockPatternUtils;
 
@@ -4774,7 +4831,7 @@
 
     move-result v1
 
-    if-nez v1, :cond_4a
+    if-nez v1, :cond_50
 
     .line 1878
     const v1, 0x1090085
@@ -4782,33 +4839,33 @@
     goto :goto_11
 
     .end local v0    # "isOnehand":Z
-    :cond_48
+    :cond_4e
     move v0, v2
 
     .line 1876
-    goto :goto_3a
+    goto :goto_40
 
     .line 1880
     .restart local v0    # "isOnehand":Z
-    :cond_4a
+    :cond_50
     const v1, 0x1090084
 
     goto :goto_11
 
     .line 1882
     .end local v0    # "isOnehand":Z
-    :pswitch_4e
+    :pswitch_54
     const v1, 0x1090086
 
     goto :goto_11
 
     .line 1884
-    :pswitch_52
+    :pswitch_58
     invoke-static {}, Lcom/android/internal/policy/impl/keyguard/sec/KeyguardProperties;->isCMCCFeature()Z
 
     move-result v1
 
-    if-eqz v1, :cond_66
+    if-eqz v1, :cond_6c
 
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mLockPatternUtils:Lcom/android/internal/widget/LockPatternUtils;
 
@@ -4818,7 +4875,7 @@
 
     move-result v1
 
-    if-eqz v1, :cond_66
+    if-eqz v1, :cond_6c
 
     .line 1886
     const v1, 0x109007c
@@ -4826,22 +4883,22 @@
     goto :goto_11
 
     .line 1888
-    :cond_66
+    :cond_6c
     const v1, 0x1090083
 
     goto :goto_11
 
     .line 1890
-    :pswitch_6a
+    :pswitch_70
     const v1, 0x1090090
 
     goto :goto_11
 
     .line 1893
-    :pswitch_6e
+    :pswitch_74
     iget-boolean v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsVoiceUnlockOn:Z
 
-    if-nez v1, :cond_76
+    if-nez v1, :cond_7c
 
     .line 1894
     const v1, 0x1090073
@@ -4849,91 +4906,91 @@
     goto :goto_11
 
     .line 1896
-    :cond_76
+    :cond_7c
     const v1, 0x1090074
 
     goto :goto_11
 
     .line 1899
-    :pswitch_7a
+    :pswitch_80
     const v1, 0x109008a
 
     goto :goto_11
 
     .line 1900
-    :pswitch_7e
+    :pswitch_84
     const v1, 0x109006b
 
     goto :goto_11
 
     .line 1903
-    :pswitch_82
+    :pswitch_88
     const v1, 0x109008f
 
     goto :goto_11
 
     .line 1904
-    :pswitch_86
+    :pswitch_8c
     const v1, 0x109008b
 
     goto :goto_11
 
     .line 1905
-    :pswitch_8a
+    :pswitch_90
     const v1, 0x109006d
 
-    goto :goto_11
+    goto/16 :goto_11
 
     .line 1906
-    :pswitch_8e
+    :pswitch_95
     const v1, 0x1090087
 
-    goto :goto_11
+    goto/16 :goto_11
 
     .line 1907
-    :pswitch_92
+    :pswitch_9a
     const v1, 0x1090076
 
     goto/16 :goto_11
 
     .line 1908
-    :pswitch_97
+    :pswitch_9f
     const v1, 0x109006e
 
     goto/16 :goto_11
 
     .line 1909
-    :pswitch_9c
+    :pswitch_a4
     const v1, 0x1090092
 
     goto/16 :goto_11
 
     .line 1910
-    :pswitch_a1
+    :pswitch_a9
     const v1, 0x1090091
 
     goto/16 :goto_11
 
     .line 1867
-    :pswitch_data_a6
+    :pswitch_data_ae
     .packed-switch 0x1
-        :pswitch_2a
-        :pswitch_4e
-        :pswitch_52
-        :pswitch_a1
-        :pswitch_6a
-        :pswitch_7e
-        :pswitch_6e
-        :pswitch_7a
-        :pswitch_8a
-        :pswitch_8e
-        :pswitch_92
-        :pswitch_97
-        :pswitch_9c
+        :pswitch_30
+        :pswitch_54
+        :pswitch_58
+        :pswitch_a9
+        :pswitch_70
+        :pswitch_84
+        :pswitch_74
+        :pswitch_80
+        :pswitch_90
+        :pswitch_95
+        :pswitch_9a
+        :pswitch_9f
+        :pswitch_a4
         :pswitch_11
         :pswitch_11
-        :pswitch_82
-        :pswitch_86
+        :pswitch_88
+        :pswitch_8c
         :pswitch_12
     .end packed-switch
 .end method
@@ -5311,7 +5368,7 @@
 
     aget v4, v4, v5
 
-    packed-switch v4, :pswitch_data_a6
+    packed-switch v4, :pswitch_data_ae
 
     move v1, v2
 
@@ -5322,11 +5379,17 @@
 
     .line 1819
     :pswitch_12
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->checkLockType()Z
+
+    move-result v1
+
+    if-nez v1, :cond_28
+
     invoke-static {}, Lcom/android/internal/policy/impl/keyguard/sec/KeyguardProperties;->isJapanFeature()Z
 
     move-result v1
 
-    if-eqz v1, :cond_26
+    if-eqz v1, :cond_2c
 
     .line 1820
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mActivityLauncher:Lcom/android/internal/policy/impl/keyguard/KeyguardActivityLauncher;
@@ -5337,21 +5400,22 @@
 
     move-result v1
 
-    if-eqz v1, :cond_26
+    if-eqz v1, :cond_2c
 
     .line 1821
+    :cond_28
     const v1, 0x10203be
 
     goto :goto_11
 
     .line 1823
-    :cond_26
+    :cond_2c
     const v1, 0x10203db
 
     goto :goto_11
 
     .line 1826
-    :pswitch_2a
+    :pswitch_30
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -5366,14 +5430,14 @@
 
     move-result v1
 
-    if-ne v1, v3, :cond_48
+    if-ne v1, v3, :cond_4e
 
     move v0, v3
 
     .line 1827
     .local v0, "isOnehand":Z
-    :goto_3a
-    if-ne v0, v3, :cond_4a
+    :goto_40
+    if-ne v0, v3, :cond_50
 
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mLockPatternUtils:Lcom/android/internal/widget/LockPatternUtils;
 
@@ -5381,7 +5445,7 @@
 
     move-result v1
 
-    if-nez v1, :cond_4a
+    if-nez v1, :cond_50
 
     .line 1828
     const v1, 0x10203b8
@@ -5389,33 +5453,33 @@
     goto :goto_11
 
     .end local v0    # "isOnehand":Z
-    :cond_48
+    :cond_4e
     move v0, v2
 
     .line 1826
-    goto :goto_3a
+    goto :goto_40
 
     .line 1830
     .restart local v0    # "isOnehand":Z
-    :cond_4a
+    :cond_50
     const v1, 0x10203b6
 
     goto :goto_11
 
     .line 1833
     .end local v0    # "isOnehand":Z
-    :pswitch_4e
+    :pswitch_54
     const v1, 0x10203bc
 
     goto :goto_11
 
     .line 1835
-    :pswitch_52
+    :pswitch_58
     invoke-static {}, Lcom/android/internal/policy/impl/keyguard/sec/KeyguardProperties;->isCMCCFeature()Z
 
     move-result v1
 
-    if-eqz v1, :cond_66
+    if-eqz v1, :cond_6c
 
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mLockPatternUtils:Lcom/android/internal/widget/LockPatternUtils;
 
@@ -5425,7 +5489,7 @@
 
     move-result v1
 
-    if-eqz v1, :cond_66
+    if-eqz v1, :cond_6c
 
     .line 1837
     const v1, 0x10203ad
@@ -5433,22 +5497,22 @@
     goto :goto_11
 
     .line 1839
-    :cond_66
+    :cond_6c
     const v1, 0x10203b3
 
     goto :goto_11
 
     .line 1841
-    :pswitch_6a
+    :pswitch_70
     const v1, 0x10203cb
 
     goto :goto_11
 
     .line 1843
-    :pswitch_6e
+    :pswitch_74
     iget-boolean v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsVoiceUnlockOn:Z
 
-    if-nez v1, :cond_76
+    if-nez v1, :cond_7c
 
     .line 1844
     const v1, 0x1020369
@@ -5456,91 +5520,91 @@
     goto :goto_11
 
     .line 1846
-    :cond_76
+    :cond_7c
     const v1, 0x102036d
 
     goto :goto_11
 
     .line 1849
-    :pswitch_7a
+    :pswitch_80
     const v1, 0x10203c1
 
     goto :goto_11
 
     .line 1850
-    :pswitch_7e
+    :pswitch_84
     const v1, 0x102034d
 
     goto :goto_11
 
     .line 1853
-    :pswitch_82
+    :pswitch_88
     const v1, 0x10203c9
 
     goto :goto_11
 
     .line 1854
-    :pswitch_86
+    :pswitch_8c
     const v1, 0x10203c5
 
     goto :goto_11
 
     .line 1855
-    :pswitch_8a
+    :pswitch_90
     const v1, 0x1020353
 
-    goto :goto_11
+    goto/16 :goto_11
 
     .line 1856
-    :pswitch_8e
+    :pswitch_95
     const v1, 0x10203bd
 
-    goto :goto_11
+    goto/16 :goto_11
 
     .line 1857
-    :pswitch_92
+    :pswitch_9a
     const v1, 0x1020382
 
     goto/16 :goto_11
 
     .line 1858
-    :pswitch_97
+    :pswitch_9f
     const v1, 0x109006e
 
     goto/16 :goto_11
 
     .line 1859
-    :pswitch_9c
+    :pswitch_a4
     const v1, 0x10203ce
 
     goto/16 :goto_11
 
     .line 1860
-    :pswitch_a1
+    :pswitch_a9
     const v1, 0x10203cc
 
     goto/16 :goto_11
 
     .line 1816
-    :pswitch_data_a6
+    :pswitch_data_ae
     .packed-switch 0x1
-        :pswitch_2a
-        :pswitch_4e
-        :pswitch_52
-        :pswitch_a1
-        :pswitch_6a
-        :pswitch_7e
-        :pswitch_6e
-        :pswitch_7a
-        :pswitch_8a
-        :pswitch_8e
-        :pswitch_92
-        :pswitch_97
-        :pswitch_9c
+        :pswitch_30
+        :pswitch_54
+        :pswitch_58
+        :pswitch_a9
+        :pswitch_70
+        :pswitch_84
+        :pswitch_74
+        :pswitch_80
+        :pswitch_90
+        :pswitch_95
+        :pswitch_9a
+        :pswitch_9f
+        :pswitch_a4
         :pswitch_11
         :pswitch_11
-        :pswitch_82
-        :pswitch_86
+        :pswitch_88
+        :pswitch_8c
         :pswitch_12
     .end packed-switch
 .end method
@@ -6774,37 +6838,37 @@
 
     move-result v0
 
-    const/4 v1, 0x5
+    const/16 v1, 0x8
 
-    if-ge v0, v1, :cond_1b
+    if-ge v0, v1, :cond_1c
 
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mUserSetupCompleted:Z
 
-    if-eqz v0, :cond_1b
+    if-eqz v0, :cond_1c
 
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsEasyUxOn:Z
 
-    if-nez v0, :cond_1b
+    if-nez v0, :cond_1c
 
     iget-boolean v0, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardHostView;->mIsMultipleLockOn:Z
 
-    if-eqz v0, :cond_1b
+    if-eqz v0, :cond_1c
 
     invoke-static {}, Lcom/android/internal/policy/impl/keyguard/sec/KeyguardProperties;->isSupportSPC()Z
 
     move-result v0
 
-    if-nez v0, :cond_1b
+    if-nez v0, :cond_1c
 
     const/4 v0, 0x1
 
-    :goto_1a
+    :goto_1b
     return v0
 
-    :cond_1b
+    :cond_1c
     const/4 v0, 0x0
 
-    goto :goto_1a
+    goto :goto_1b
 .end method
 
 .method private shouldEnableMenuKey()Z

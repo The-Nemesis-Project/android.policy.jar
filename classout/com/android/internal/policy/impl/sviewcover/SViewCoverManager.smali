@@ -99,6 +99,8 @@
 
 .field private mCurrntColor:I
 
+.field private mCustomSViewBG:I
+
 .field private mFlipCoverWakeLock:Landroid/os/PowerManager$WakeLock;
 
 .field private mGoToSleepRunnable:Ljava/lang/Runnable;
@@ -493,6 +495,23 @@
 
     invoke-virtual {v0, v2, v7, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
+    .line 556
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v2, "custom_sview_background"
+
+    invoke-static {v2}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mContentObserver:Landroid/database/ContentObserver;
+
+    invoke-virtual {v0, v2, v7, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
     .line 557
     new-instance v0, Landroid/view/WindowManager$LayoutParams;
 
@@ -849,6 +868,48 @@
 
     iput-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
 
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v2, "custom_sview_background"
+
+    invoke-static {v0, v2, v3}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v2
+
+    iput v2, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCustomSViewBG:I
+
+    iget v2, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCustomSViewBG:I
+
+    if-eqz v2, :cond_3d
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
+
+    const/4 v2, 0x0
+
+    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setBackgroundColor(I)V
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
+
+    const/16 v2, 0xff
+
+    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setImageAlpha(I)V
+
+    const v2, 0x108109c
+
+    goto :goto_40
+
+    :cond_3d
+    const v2, 0x1080597
+
+    :goto_40
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
+
+    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setImageResource(I)V
+
     .line 589
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCover:Landroid/view/View;
 
@@ -865,11 +926,11 @@
     .line 590
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewPager:Lcom/android/internal/policy/impl/sviewcover/SViewCoverPager;
 
-    if-eqz v0, :cond_13b
+    if-eqz v0, :cond_16a
 
     const/4 v0, 0x1
 
-    :goto_2c
+    :goto_57
     sput-boolean v0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mIsSCover2:Z
 
     .line 592
@@ -882,7 +943,7 @@
     .line 595
     sget-boolean v0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mIsSCover2:Z
 
-    if-eqz v0, :cond_13a
+    if-eqz v0, :cond_169
 
     .line 596
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewPager:Lcom/android/internal/policy/impl/sviewcover/SViewCoverPager;
@@ -897,9 +958,13 @@
     .line 598
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
 
-    if-eqz v0, :cond_5a
+    if-eqz v0, :cond_89
 
     .line 599
+    iget v2, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCustomSViewBG:I
+
+    if-nez v2, :cond_89
+
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
 
     iget v1, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCurrentCoverBackgroundColor:I
@@ -911,7 +976,7 @@
 
     const/high16 v1, -0x1000000
 
-    if-ne v0, v1, :cond_13e
+    if-ne v0, v1, :cond_16d
 
     .line 601
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
@@ -921,8 +986,8 @@
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageAlpha(I)V
 
     .line 606
-    :cond_5a
-    :goto_5a
+    :cond_89
+    :goto_89
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mContext:Landroid/content/Context;
 
     const v1, 0x10900dc
@@ -999,7 +1064,7 @@
     .line 612
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mMissedEventWidget:Lcom/android/internal/policy/impl/sviewcover/SViewCoverMissedEvents;
 
-    if-eqz v0, :cond_c0
+    if-eqz v0, :cond_ef
 
     .line 613
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mMissedEventWidget:Lcom/android/internal/policy/impl/sviewcover/SViewCoverMissedEvents;
@@ -1026,7 +1091,7 @@
     invoke-virtual {v0}, Lcom/android/internal/policy/impl/sviewcover/SViewCoverMissedEvents;->updateMissedEvents()V
 
     .line 618
-    :cond_c0
+    :cond_ef
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mContext:Landroid/content/Context;
 
     const v1, 0x10900df
@@ -1149,24 +1214,24 @@
     invoke-direct {p0}, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->moveToHomePage()V
 
     .line 636
-    :cond_13a
+    :cond_169
     return-void
 
-    :cond_13b
+    :cond_16a
     move v0, v1
 
     .line 590
-    goto/16 :goto_2c
+    goto/16 :goto_57
 
     .line 603
-    :cond_13e
+    :cond_16d
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
 
     const/16 v1, 0x10
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageAlpha(I)V
 
-    goto/16 :goto_5a
+    goto/16 :goto_89
 .end method
 
 .method private handleHide()V
@@ -2663,7 +2728,7 @@
 .end method
 
 .method protected handleBackgroundColorUpdated()V
-    .registers 4
+    .registers 5
 
     .prologue
     const/high16 v2, -0x1000000
@@ -2686,9 +2751,57 @@
     .line 454
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
 
-    if-eqz v0, :cond_26
+    if-eqz v0, :cond_56
 
     .line 455
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "custom_sview_background"
+
+    const/4 v3, 0x0
+
+    invoke-static {v0, v1, v3}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    iput v1, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCustomSViewBG:I
+
+    iget v1, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCustomSViewBG:I
+
+    if-eqz v1, :cond_38
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setBackgroundColor(I)V
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
+
+    const/16 v1, 0xff
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageAlpha(I)V
+
+    const v1, 0x108109c
+
+    goto :goto_3b
+
+    :cond_38
+    const v1, 0x1080597
+
+    :goto_3b
+    iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    iget v1, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCustomSViewBG:I
+
+    if-nez v1, :cond_56
+
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
 
     iget v1, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCurrentCoverBackgroundColor:I
@@ -2698,7 +2811,7 @@
     .line 456
     iget v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mCurrentCoverBackgroundColor:I
 
-    if-ne v0, v2, :cond_27
+    if-ne v0, v2, :cond_57
 
     .line 457
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
@@ -2708,19 +2821,19 @@
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageAlpha(I)V
 
     .line 462
-    :cond_26
-    :goto_26
+    :cond_56
+    :goto_56
     return-void
 
     .line 459
-    :cond_27
+    :cond_57
     iget-object v0, p0, Lcom/android/internal/policy/impl/sviewcover/SViewCoverManager;->mSViewCoverBackground:Landroid/widget/ImageView;
 
     const/16 v1, 0x10
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageAlpha(I)V
 
-    goto :goto_26
+    goto :goto_56
 .end method
 
 .method protected handleUpdateSView()V

@@ -48,7 +48,7 @@
     .line 1810
     iget v2, p1, Landroid/os/Message;->what:I
 
-    packed-switch v2, :pswitch_data_11a
+    packed-switch v2, :pswitch_data_12a
 
     .line 1884
     :cond_7
@@ -419,10 +419,34 @@
 
     goto/16 :goto_7
 
+    :pswitch_119
+    iget-object v2, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardViewMediator$5;->this$0:Lcom/android/internal/policy/impl/keyguard/KeyguardViewMediator;
+
+    iget v3, p1, Landroid/os/Message;->arg1:I
+
+    if-eqz v3, :cond_125
+
+    move v3, v0
+
+    :goto_120
+    # invokes: Lcom/android/internal/policy/impl/keyguard/KeyguardViewMediator;->handleSetTorch(Z)V
+    invoke-static {v2, v3}, Lcom/android/internal/policy/impl/keyguard/KeyguardViewMediator;->access$2401(Lcom/android/internal/policy/impl/keyguard/KeyguardViewMediator;Z)V
+
+    goto/16 :goto_7
+
+    :cond_125
+    move v3, v1
+
+    goto :goto_120
+
     .line 1810
     nop
 
-    :pswitch_data_11a
+    nop
+
+    nop
+
+    :pswitch_data_12a
     .packed-switch 0x2
         :pswitch_8
         :pswitch_12
@@ -440,5 +464,8 @@
         :pswitch_7b
         :pswitch_eb
         :pswitch_10e
+        :pswitch_8
+        :pswitch_8
+        :pswitch_119
     .end packed-switch
 .end method

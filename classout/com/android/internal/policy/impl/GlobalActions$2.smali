@@ -386,6 +386,13 @@
     const/4 v4, 0x0
 
     .line 478
+    # getter for: Lcom/android/internal/policy/impl/GlobalActions;->mMinPowerMenu:Z
+    invoke-static {}, Lcom/android/internal/policy/impl/GlobalActions;->access$001()Z
+
+    move-result v1
+
+    if-nez v1, :cond_1c
+
     const-string v1, "KOR"
 
     const-string v2, ""
@@ -394,7 +401,7 @@
 
     move-result v1
 
-    if-eqz v1, :cond_15
+    if-eqz v1, :cond_1b
 
     .line 479
     const-string v1, "SKT"
@@ -405,15 +412,18 @@
 
     move-result v1
 
-    if-eqz v1, :cond_16
+    if-eqz v1, :cond_1d
 
     .line 499
-    :cond_15
-    :goto_15
+    :cond_1b
+    :goto_1b
+    const/4 v4, 0x1
+
+    :cond_1c
     return v4
 
     .line 482
-    :cond_16
+    :cond_1d
     const/4 v0, 0x0
 
     .line 483
@@ -426,7 +436,7 @@
 
     move-result v1
 
-    if-nez v1, :cond_33
+    if-nez v1, :cond_3a
 
     const-string v1, "unknown"
 
@@ -436,7 +446,7 @@
 
     move-result v1
 
-    if-nez v1, :cond_33
+    if-nez v1, :cond_3a
 
     iget-object v1, p0, Lcom/android/internal/policy/impl/GlobalActions$2;->val$current_plmn:Ljava/lang/String;
 
@@ -444,17 +454,17 @@
 
     move-result v1
 
-    if-eqz v1, :cond_34
+    if-eqz v1, :cond_3b
 
     .line 484
-    :cond_33
+    :cond_3a
     const/4 v0, 0x1
 
     .line 486
-    :cond_34
+    :cond_3b
     sget-boolean v1, Lcom/android/internal/policy/impl/GlobalActions;->SAFE_DEBUG:Z
 
-    if-eqz v1, :cond_5c
+    if-eqz v1, :cond_63
 
     .line 487
     const-string v1, "GlobalActions"
@@ -492,10 +502,10 @@
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 488
-    :cond_5c
-    if-nez v0, :cond_15
+    :cond_63
+    if-nez v0, :cond_1b
 
-    goto :goto_15
+    goto :goto_1b
 .end method
 
 .method public showDuringKeyguard()Z

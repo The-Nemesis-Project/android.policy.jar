@@ -380,6 +380,50 @@
     goto :goto_11
 .end method
 
+.method private checkLockTimeout()Z
+    .registers 4
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 2240
+    iget-object v0, p0, Lcom/android/internal/policy/impl/keyguard/PagedView;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "custom_lock_timeout"
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    return v1
+.end method
+
+.method private checkSecWidg()Z
+    .registers 4
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 2240
+    iget-object v0, p0, Lcom/android/internal/policy/impl/keyguard/PagedView;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "allow_secure_widgets"
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    return v1
+.end method
+
 .method private enforceKeyguardWidgetFrame(Landroid/view/View;)V
     .registers 4
     .param p1, "child"    # Landroid/view/View;
@@ -617,6 +661,32 @@
     const/4 v0, 0x0
 
     goto :goto_15
+.end method
+
+.method private getLockTimeout()J
+    .registers 5
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 2240
+    iget-object v0, p0, Lcom/android/internal/policy/impl/keyguard/PagedView;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "custom_lockscreen_timeout"
+
+    const v2, 0x1388
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    int-to-long v2, v1
+
+    return-wide v2
 .end method
 
 .method private updatePageAlphaValues(I)V
@@ -1487,7 +1557,7 @@
     .local v0, "page":Landroid/view/View;
     instance-of v7, v0, Landroid/view/ViewGroup;
 
-    if-eqz v7, :cond_4c
+    if-eqz v7, :cond_57
 
     move-object v1, v0
 
@@ -1506,11 +1576,11 @@
     .local v2, "view":Landroid/view/View;
     instance-of v7, v2, Lcom/android/internal/policy/impl/keyguard/KeyguardStatusView;
 
-    if-nez v7, :cond_4c
+    if-nez v7, :cond_57
 
     instance-of v7, v2, Lcom/android/internal/policy/impl/keyguard/KeyguardMultiUserSelectorView;
 
-    if-nez v7, :cond_4c
+    if-nez v7, :cond_57
 
     .line 292
     invoke-static {}, Lcom/android/internal/policy/impl/keyguard/sec/KeyguardProperties;->isKoreaFeature()Z
@@ -1566,6 +1636,19 @@
 
     .line 298
     :cond_46
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->checkLockTimeout()Z
+
+    move-result v7
+
+    if-eqz v7, :cond_51
+
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->getLockTimeout()J
+
+    move-result-wide v3
+
+    goto :goto_35
+
+    :cond_51
     iget-boolean v7, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->mIsSmartStayOn:Z
 
     if-nez v7, :cond_35
@@ -1577,7 +1660,7 @@
     .line 303
     .end local v1    # "vg":Landroid/view/ViewGroup;
     .end local v2    # "view":Landroid/view/View;
-    :cond_4c
+    :cond_57
     const-wide/16 v3, -0x1
 
     goto :goto_35
@@ -2053,11 +2136,17 @@
     .line 271
     iget-boolean v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->mIsEasyUxOn:Z
 
-    if-nez v1, :cond_17
+    if-nez v1, :cond_1d
 
     iget-boolean v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->mIsMultipleLockOn:Z
 
-    if-eqz v1, :cond_11
+    if-eqz v1, :cond_17
+
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->checkSecWidg()Z
+
+    move-result v1
+
+    if-nez v1, :cond_1e
 
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->mLockPatternUtils:Lcom/android/internal/widget/LockPatternUtils;
 
@@ -2065,37 +2154,37 @@
 
     move-result v1
 
-    if-eqz v1, :cond_18
+    if-eqz v1, :cond_1e
 
-    :cond_11
+    :cond_17
     invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->getContextualWidgetsString()Ljava/lang/String;
 
     move-result-object v1
 
-    if-nez v1, :cond_18
+    if-nez v1, :cond_1e
 
     .line 273
-    :cond_17
-    :goto_17
+    :cond_1d
+    :goto_1d
     return v0
 
-    :cond_18
+    :cond_1e
     invoke-direct {p0, p1}, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->captureUserInteraction(Landroid/view/MotionEvent;)Z
 
     move-result v1
 
-    if-nez v1, :cond_24
+    if-nez v1, :cond_2a
 
     invoke-super {p0, p1}, Lcom/android/internal/policy/impl/keyguard/PagedView;->onInterceptTouchEvent(Landroid/view/MotionEvent;)Z
 
     move-result v1
 
-    if-eqz v1, :cond_17
+    if-eqz v1, :cond_1d
 
-    :cond_24
+    :cond_2a
     const/4 v0, 0x1
 
-    goto :goto_17
+    goto :goto_1d
 .end method
 
 .method public onLongClick(Landroid/view/View;)Z
@@ -2723,11 +2812,17 @@
     .line 263
     iget-boolean v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->mIsEasyUxOn:Z
 
-    if-nez v1, :cond_17
+    if-nez v1, :cond_1d
 
     iget-boolean v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->mIsMultipleLockOn:Z
 
-    if-eqz v1, :cond_11
+    if-eqz v1, :cond_17
+
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->checkSecWidg()Z
+
+    move-result v1
+
+    if-nez v1, :cond_1e
 
     iget-object v1, p0, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->mLockPatternUtils:Lcom/android/internal/widget/LockPatternUtils;
 
@@ -2735,37 +2830,37 @@
 
     move-result v1
 
-    if-eqz v1, :cond_18
+    if-eqz v1, :cond_1e
 
-    :cond_11
+    :cond_17
     invoke-direct {p0}, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->getContextualWidgetsString()Ljava/lang/String;
 
     move-result-object v1
 
-    if-nez v1, :cond_18
+    if-nez v1, :cond_1e
 
     .line 265
-    :cond_17
-    :goto_17
+    :cond_1d
+    :goto_1d
     return v0
 
-    :cond_18
+    :cond_1e
     invoke-direct {p0, p1}, Lcom/android/internal/policy/impl/keyguard/KeyguardWidgetPager;->captureUserInteraction(Landroid/view/MotionEvent;)Z
 
     move-result v1
 
-    if-nez v1, :cond_24
+    if-nez v1, :cond_2a
 
     invoke-super {p0, p1}, Lcom/android/internal/policy/impl/keyguard/PagedView;->onTouchEvent(Landroid/view/MotionEvent;)Z
 
     move-result v1
 
-    if-eqz v1, :cond_17
+    if-eqz v1, :cond_1d
 
-    :cond_24
+    :cond_2a
     const/4 v0, 0x1
 
-    goto :goto_17
+    goto :goto_1d
 .end method
 
 .method protected onUnhandledTap(Landroid/view/MotionEvent;)V
