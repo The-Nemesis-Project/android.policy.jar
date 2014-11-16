@@ -3724,8 +3724,6 @@
     .line 1423
     iget v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mLongPressOnHomeBehavior:I
 
-    if-ne v4, v6, :cond_a5
-
     .line 1424
     invoke-direct {p0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->toggleRecentApps()V
 
